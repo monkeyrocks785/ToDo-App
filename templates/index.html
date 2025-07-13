@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+<h1>Welcome to the ToDo App</h2>
+<p>You can add your and organise your todos here easily</p>
+
+<form action="/" method="POST">
+    <label for="title">Enter the title for the task here : </label>
+    <input type="text" name="title" placeholder="Enter a task"><br>
+    <label for="desc">Enter the description for the task here : </label>
+    <textarea name="desc" placeholder="Enter a description"></textarea>
+    <button type="submit">Add Task</button>
+</form>
+
+
+
+{% endblock %}
