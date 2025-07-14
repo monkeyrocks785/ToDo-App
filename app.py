@@ -6,6 +6,7 @@ import os
 app = Flask(__name__)
 BASE_DIR = os.path.abspath(os.path.dirname(__file__))
 app.config['SQLALCHEMY_DATABASE_URI'] = f"sqlite:///{os.path.join(BASE_DIR, 'todo.db')}"
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 
 class Todo(db.Model):
@@ -20,12 +21,14 @@ class Todo(db.Model):
 @app.route('/')
 def home():
     if request.method == 'POST':
-        title = request.form['title']
-        desc = request.form['desc']
-        with app.app_context():
-            todo = Todo(title = title, desc = desc)
+        try:
+            todo = Todo()
+            todo.title = request.form['title']
+            todo.desc = request.form['desc']
             db.session.add(todo)
             db.session.commit()
+        except Exception as e:
+            print(f"Error adding todo: {e}")
     return render_template('index.html')
 
 @app.route('/add', methods=['GET','POST'])
