@@ -21,6 +21,11 @@ nav {
     padding: 10px 50px;
 }
 
+nav h1 a {
+    text-decoration: none;
+    color: white;
+}
+
 nav ul {
     list-style: none;
     display: flex;
@@ -55,24 +60,24 @@ nav ul li a:hover {
     color: #616161;
 }
 
-.content h1{
+.content h1 {
     margin: 10px 0;
 }
 
-.content p{
+.content p {
     margin: 10px 0;
 }
 
 .content form {
     width: 70%;
-    margin: 50px 0;
+    margin: 25px 0;
     display: flex;
     justify-content: center;
     align-items: flex-start;
     flex-direction: column;
 }
 
-form input, form textarea{
+form input {
     width: 100%;
     padding: 10px 15px;
     border: 1px solid #ccc;
@@ -80,7 +85,7 @@ form input, form textarea{
     margin: 10px 0;
 }
 
-form label{
+form label {
     font-weight: 600;
 }
 
@@ -92,4 +97,50 @@ form button {
     color: white;
     background-color: #575757;
     margin: 20px 0;
+}
+
+.content .tasks {
+    width: 90%;
+    margin: 20px 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 30px;
+}
+
+.tasks h1 {
+    width: 100%;
+    text-align: center;
+}
+
+.tasks h2 {
+    width: 50%;
+    text-align: center;
+    margin: 20px 0;
+    background-color: #707070;
+    color: white;
+    border-radius: 10px;
+    padding: 10px 50px;
+    font-weight: 300;
+}
+
+.tasks table {
+    width: 80%;
+    text-align: center;
+}
+
+.tasks table td button {
+    padding: 5px 10px;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    background-color: #575757;
+    cursor: pointer;
+    transition: all 0.5s ease-in-out;
+}
+
+.tasks table td button a {
+    text-decoration: none;
+    color: white;
 }

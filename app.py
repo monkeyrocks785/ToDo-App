@@ -18,25 +18,40 @@ class Todo(db.Model):
     def __repr__(self) -> str:
         return f"{self.id} - {self.title}"
     
-@app.route('/')
+@app.route('/', methods = ['GET', 'POST'])
 def home():
     if request.method == 'POST':
-        try:
-            todo = Todo()
-            todo.title = request.form['title']
-            todo.desc = request.form['desc']
-            db.session.add(todo)
-            db.session.commit()
-        except Exception as e:
-            print(f"Error adding todo: {e}")
-    return render_template('index.html')
-
-@app.route('/add', methods=['GET','POST'])
-def add():
+        todo = Todo()
+        todo.title = request.form['title']
+        todo.desc = request.form['desc']
+        db.session.add(todo)
+        db.session.commit()
     todo = Todo.query.all()
-    print(todo)
-    return "hey"
+    return render_template('index.html', todos = todo)
 
+@app.route('/delete/<int:todo_id>')
+def delete(todo_id):
+    todo = Todo.query.filter_by(id = todo_id).first()
+    db.session.delete(todo)
+    db.session.commit()
+    return redirect('/')
+
+@app.route('/update/<int:todo_id>', methods = ['GET', 'POST'])
+def update(todo_id):
+    if request.method == 'POST':
+        title = request.form['title']
+        desc = request.form['desc']
+        todo = Todo.query.get(todo_id)
+        if not todo:
+            return "Todo not found", 404
+        todo.title = title
+        todo.desc = desc
+        db.session.add(todo)
+        db.session.commit()
+        return redirect('/')
+    todo = Todo.query.filter_by(id = todo_id).first()
+    return render_template('update.html', todo = todo)
+    
 if __name__ == '__main__':
     with app.app_context():
         db.create_all()

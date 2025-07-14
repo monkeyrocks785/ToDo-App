@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+<h1>Update your todo here</h2>
+    <form action="/update/{{ todo.id }}" method="POST">
+        <label for="title">Enter the title for the task here : </label>
+        <input type="text" name="title" value="{{ todo.title }}" placeholder="Enter a task"><br>
+        <label for="desc">Enter the description for the task here : </label>
+        <input type="text" name="desc" value="{{ todo.desc}}" placeholder="Enter the description"><br>
+        <button type="submit">Update</button>
+    </form>
+    {% endblock %}

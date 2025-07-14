@@ -4,16 +4,41 @@
 
 {% block content %}
 <h1>Welcome to the ToDo App</h2>
-<p>You can add your and organise your todos here easily</p>
+    <p>You can add your and organise your todos here easily</p>
 
-<form action="/" method="POST">
-    <label for="title">Enter the title for the task here : </label>
-    <input type="text" name="title" placeholder="Enter a task"><br>
-    <label for="desc">Enter the description for the task here : </label>
-    <textarea name="desc" placeholder="Enter a description"></textarea>
-    <button type="submit">Add Task</button>
-</form>
-
-
-
-{% endblock %}
+    <form action="/" method="POST">
+        <label for="title">Enter the title for the task here : </label>
+        <input type="text" name="title" placeholder="Enter a task"><br>
+        <label for="desc">Enter the description for the task here : </label>
+        <input type="text" name="desc" placeholder="Enter the description"><br>
+        <button type="submit">Add Task</button>
+    </form>
+    <div class="tasks">
+        <h1>Your Todos</h1>
+        {% if todos|length == 0 %}
+        <h2>No tasks available</h2>
+        {% else %}
+        <table>
+            <tr>
+                <th>SNo.</th>
+                <th>Title</th>
+                <th>Description</th>
+                <th>Time</th>
+                <th>Action</th>
+            </tr>
+            {% for t in todos %}
+            <tr>
+                <th>{{ loop.index }}</th>
+                <td>{{ t.title }}</td>
+                <td>{{ t.desc }}</td>
+                <td>{{ t.time.strftime("%H:%M:%S %d-%m-%Y") }}</td>
+                <td>
+                    <button><a href="/update/{{ t.id }}">Update</a></button>
+                    <button><a href="/delete/{{ t.id }}">Delete</a></button>
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+        {% endif %}
+    </div>
+    {% endblock %}
